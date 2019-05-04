@@ -34,9 +34,11 @@ matrix:
 before_install:
   - npm set loglevel error
   - npm set progress false
+  - bash ./build/run_before_install.sh $(phpenv version-name)
 
 install:
   - npm install -g jsonlint
+  - bash ./build/run_install.sh $(phpenv version-name)
 
 script:
   - find . -type f -name "*.json" -print0 | xargs -0 -n1 jsonlint -q
@@ -46,3 +48,5 @@ script:
   - if [[ "$SNIFF" == "1" ]]; then composer install-codestandards; fi
   - if [[ "$SNIFF" == "1" ]]; then ./vendor/bin/phpcs; fi
   - ./vendor/bin/security-checker -n security:check --end-point=http://security.sensiolabs.org/check_lock
+  - bash ./build/run_build.sh $(phpenv version-name)
+  

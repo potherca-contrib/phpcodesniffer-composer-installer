@@ -29,12 +29,21 @@
   },
   "require-dev": {
     "composer/composer": "*",
+    "potherca/phpunit-testcase-traits": "^0.4.0"
+  },
+  "suggest": {
+    "dealerdirect/qa-tools": "All the PHP QA tools you'll need"
     "sensiolabs/security-checker": "^4.1.0",
     "phpcompatibility/php-compatibility": "^9.0"
   },
   "autoload": {
     "psr-4": {
       "Dealerdirect\\Composer\\Plugin\\Installers\\PHPCodeSniffer\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Dealerdirect\\Composer\\Plugin\\Installers\\PHPCodeSniffer\\": "tests/"
     }
   },
   "extra": {
