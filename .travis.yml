@@ -41,6 +41,13 @@ jobs:
     - php: 5.3
       # As the latest Debian does not support PHP 5.3 anymore, we need to force using 'precise'.
       dist: precise
+      script:
+        - find . -type f -name "*.php" -print0 | xargs -0 -n1 php -l
+        - travis_wait composer install --no-interaction --no-progress --no-scripts --no-suggest --optimize-autoloader --prefer-dist --verbose
+        - composer install-codestandards
+        - ./vendor/bin/phpcs -i
+        - ./vendor/bin/phpcs -s --standard=PHPCompatibility --runtime-set testVersion "${TRAVIS_PHP_VERSION:0:3}" --exclude=PHPCompatibility.Upgrade.LowPHP ./src/
+
   fast_finish: true
 
 script:
